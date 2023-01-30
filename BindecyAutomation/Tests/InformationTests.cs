@@ -6,18 +6,14 @@ namespace BindecyAutomation.Tests
     [TestFixture]
     public class InformationTests : BaseTest
     {
-        [SetUp]
-        public void LoginToSystem()
-        {
-            var loginPage = PageNavigator!.NavigateToLoginPage();
-            loginPage.EnterUserName(STANDARD_USER);
-            loginPage.EnterPassword(CORRECT_PASSWORD);
-            loginPage.Login();
-        }
-
         [Test]
-        public void WhenFirstNameEmptyRequired_ThenErrorMessageAppear()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenFirstNameEmptyRequired_ThenErrorMessageAppear(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             var mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             var cartPage = mainPage.GoToCartPage();
@@ -29,8 +25,13 @@ namespace BindecyAutomation.Tests
         }
 
         [Test]
-        public void WhenLastNameEmptyRequired_ThenErrorMessageAppear()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenLastNameEmptyRequired_ThenErrorMessageAppear(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             var mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             var cartPage = mainPage.GoToCartPage();
@@ -42,8 +43,13 @@ namespace BindecyAutomation.Tests
         }
 
         [Test]
-        public void WhePostalCodeEmptyRequired_ThenErrorMessageAppear()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhePostalCodeEmptyRequired_ThenErrorMessageAppear(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             var mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             var cartPage = mainPage.GoToCartPage();
@@ -55,8 +61,13 @@ namespace BindecyAutomation.Tests
         }
 
         [Test]
-        public void WheAllFieldsEmptyRequired_ThenErrorMessageAppear()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WheAllFieldsEmptyRequired_ThenErrorMessageAppear(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             var mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             var cartPage = mainPage.GoToCartPage();

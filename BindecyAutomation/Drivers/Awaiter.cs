@@ -7,8 +7,7 @@ namespace BindecyAutomation.Drivers
 {
     public class Awaiter : WebDriverWait
     {
-        public Awaiter(IWebDriver driver, IOptions<AwaiterConfig> awaiterConfig)
-            : base(driver, awaiterConfig.Value.Timeout)
+        public Awaiter(IWebDriver driver, IOptions<AwaiterConfig> awaiterConfig) : base(driver, awaiterConfig.Value.Timeout)
         {
             Timeout = awaiterConfig.Value.Timeout;
             PollingInterval = awaiterConfig.Value.PollingInterval;

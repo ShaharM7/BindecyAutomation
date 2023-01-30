@@ -3,6 +3,7 @@ using BindecyAutomation.Drivers;
 using BindecyAutomation.Drivers.Options;
 using BindecyAutomation.Navigation;
 using BindecyAutomation.Pages;
+using BindecyAutomation.Steps;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -41,6 +42,9 @@ namespace BindecyAutomation
             // ---------------------------------- Infra -------------------------------------------
             services.AddSingleton<PageNavigator>();
             services.AddSingleton<ChromeOptions, BrowserOptions>();
+
+            // ---------------------------------- Steps -----------------------------------------------
+            services.AddSingleton<LoginSteps>();
 
             // --------------------------------- Drivers -----------------------------------------------
             services.AddSingleton<WebDriverWait, Awaiter>();

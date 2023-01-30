@@ -26,7 +26,7 @@ namespace BindecyAutomation.Tests
             loginPage.EnterPassword(INCORRECT_PASSWORD);
             loginPage.Login();
 
-            StringAssert.Contains(" not match any user in this service", loginPage.GetErrorMessage());
+            StringAssert.Contains("not match any user in this service", loginPage.GetErrorMessage());
         }
     }
 }

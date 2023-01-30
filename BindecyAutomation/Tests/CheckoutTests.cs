@@ -7,18 +7,14 @@ namespace BindecyAutomation.Tests
     [TestFixture]
     public class CheckoutTests : BaseTest
     {
-        [SetUp]
-        public void LoginToSystem()
-        {
-            var loginPage = PageNavigator!.NavigateToLoginPage();
-            loginPage.EnterUserName(STANDARD_USER);
-            loginPage.EnterPassword(CORRECT_PASSWORD);
-            loginPage.Login();
-        }
-
         [Test]
-        public void WhenLastNameEmptyRequired_ThenErrorMessageAppear()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenTwoItemsAddedToTheCart_ThenTheyAppearCheckoutPage(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             var mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             mainPage.AddItemToCart(SauceLabsBikeLight);
@@ -28,8 +24,9 @@ namespace BindecyAutomation.Tests
             checkoutPage.FillLastName("Moshe Refaeli");
             checkoutPage.FillPostalCode("27000");
             checkoutPage.Continue();
+            StringAssert.AreEqualIgnoringCase("https://www.saucedemo.com/checkout-step-two.html", checkoutPage.GetPageUrl());
+            
             var expectedItems = new List<string> {SauceLabsBackpack, SauceLabsBikeLight};
-
             CollectionAssert.AreEqual(expectedItems, checkoutPage.GetAllItemsName());
         }
     }

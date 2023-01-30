@@ -6,18 +6,14 @@ namespace BindecyAutomation.Tests
     [TestFixture]
     public class CartTests : BaseTest
     {
-        [SetUp]
-        public void LoginToSystem()
-        {
-            var loginPage = PageNavigator!.NavigateToLoginPage();
-            loginPage.EnterUserName(STANDARD_USER);
-            loginPage.EnterPassword(CORRECT_PASSWORD);
-            loginPage.Login();
-        }
-
         [Test]
-        public void WhenAddItemToCart_AndRemoveItFromCartPage_ThenCartNotExist()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenAddItemToCart_AndRemoveItFromCartPage_ThenCartNotExist(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+
             var mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             var cartPage = mainPage.GoToCartPage();

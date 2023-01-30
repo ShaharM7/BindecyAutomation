@@ -8,26 +8,27 @@ namespace BindecyAutomation.Tests
     [TestFixture]
     public class MainTests : BaseTest
     {
-        [SetUp]
-        public void LoginToSystem()
-        {
-            LoginPage loginPage = PageNavigator!.NavigateToLoginPage();
-            loginPage.EnterUserName(STANDARD_USER);
-            loginPage.EnterPassword(CORRECT_PASSWORD);
-            loginPage.Login();
-        }
-
         [Test]
-        public void WhenAddItem_ThenCartBadgeWasUpdatedWithTheRightNumberOfItems()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenAddItem_ThenCartBadgeWasUpdatedWithTheRightNumberOfItems(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             MainPage mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             StringAssert.AreEqualIgnoringCase("1", mainPage.GetNumberOfItemsInShoppingCard());
         }
 
         [Test]
-        public void WhenAddItem_AndThenRemoveIt_ThenCartBadgeWasUpdatedWithTheRightNumberOfItems()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenAddItem_AndThenRemoveIt_ThenCartBadgeWasUpdatedWithTheRightNumberOfItems(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             MainPage mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             mainPage.RemoveItemToCart(SauceLabsBackpack);
@@ -35,8 +36,13 @@ namespace BindecyAutomation.Tests
         }
 
         [Test]
-        public void WhenAddTheCheapest_AndTheMostExpensiveItem_ThenTheCartBadgeHasTwoItems()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenAddTheCheapest_AndTheMostExpensiveItem_ThenTheCartBadgeHasTwoItems(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             MainPage mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.SortBy(PriceLowToHigh);
             mainPage.AddFirstItem();
@@ -46,16 +52,26 @@ namespace BindecyAutomation.Tests
         }
 
         [Test]
-        public void WhenAddAllItemsStartIWithTheWordsSauceLabs_ThenTheCartBadgeHasFiveItems()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenAddAllItemsStartIWithTheWordsSauceLabs_ThenTheCartBadgeHasFiveItems(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             MainPage mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItems(SauceLabsItems);
             StringAssert.AreEqualIgnoringCase("5", mainPage.GetNumberOfItemsInShoppingCard());
         }
 
         [Test]
-        public void WhenAddItem_ThenItemShowsAtTheCheckoutPage()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenAddItem_ThenItemShowsAtTheCheckoutPage(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             MainPage mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             CartPage cartPage = mainPage.GoToCartPage();
@@ -63,8 +79,13 @@ namespace BindecyAutomation.Tests
         }
 
         [Test]
-        public void WhenResetAppState_ThenShoppingCartReset()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenResetAppState_ThenShoppingCartReset(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             MainPage mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             mainPage.ResetAppState();
@@ -72,8 +93,13 @@ namespace BindecyAutomation.Tests
         }
 
         [Test]
-        public void WhenLogout_ThenGoToLoginPage()
+        [TestCase(STANDARD_USER)]
+        [TestCase(PROBLEM_USER)]
+        [TestCase(PERFORMANCE_GLITCH_USER)]
+        public void WhenLogout_ThenGoToLoginPage(string userName)
         {
+            LoginSteps?.LoginToSystem(userName, CORRECT_PASSWORD);
+            
             MainPage mainPage = PageNavigator!.NavigateToMainPage();
             mainPage.AddItemToCart(SauceLabsBackpack);
             mainPage.Logout();

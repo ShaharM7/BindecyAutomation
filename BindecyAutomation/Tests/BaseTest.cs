@@ -1,4 +1,5 @@
 using BindecyAutomation.Navigation;
+using BindecyAutomation.Steps;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,10 +11,11 @@ namespace BindecyAutomation.Tests
     public class BaseTest
     {
         private const string APP_SETTINGS_JSON_PATH = "appsettings.json";
-        
+
         private IWebDriver? _driver;
 
         protected PageNavigator? PageNavigator;
+        protected LoginSteps? LoginSteps;
 
 
         [SetUp]
@@ -26,6 +28,7 @@ namespace BindecyAutomation.Tests
 
             _driver = webHostBuilder.Services.GetRequiredService<IWebDriver>();
             PageNavigator = webHostBuilder.Services.GetRequiredService<PageNavigator>();
+            LoginSteps = webHostBuilder.Services.GetRequiredService<LoginSteps>();
         }
 
         [TearDown]
