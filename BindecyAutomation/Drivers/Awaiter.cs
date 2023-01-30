@@ -1,0 +1,21 @@
+﻿using BindecyAutomation.Configuration;
+using Microsoft.Extensions.Options;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+
+namespace BindecyAutomation.Drivers
+{
+    public class Awaiter : WebDriverWait
+    {
+        public Awaiter(IWebDriver driver, IOptions<AwaiterConfig> awaiterConfig)
+            : base(driver, awaiterConfig.Value.Timeout)
+        {
+            Timeout = awaiterConfig.Value.Timeout;
+            PollingInterval = awaiterConfig.Value.PollingInterval;
+
+            driver.Manage().Timeouts().ImplicitWait = awaiterConfig.Value.ImplicitWait;
+            driver.Manage().Timeouts().AsynchronousJavaScript = awaiterConfig.Value.AsynchronousJavaScript;
+            driver.Manage().Timeouts().PageLoad = awaiterConfig.Value.PageLoad;
+        }
+    }
+}
