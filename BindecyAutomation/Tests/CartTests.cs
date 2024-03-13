@@ -19,6 +19,9 @@ namespace BindecyAutomation.Tests
             var cartPage = mainPage.GoToCartPage();
             cartPage.RemoveItemCart(SauceLabsBackpack);
 
+            
+            
+            
             Assert.That(cartPage.GetNumberOfItems(), Is.EqualTo(0));
         }
     }
